@@ -1,3 +1,5 @@
+import dotenv from "dotenv";
+dotenv.config();
 import "reflect-metadata";
 import { createConnection } from "typeorm";
 import express from "express";
@@ -15,7 +17,7 @@ createConnection().then(async (_) => {
   app.use(helmet());
   app.use(express.json());
 
-  app.use("/api", routes);
+  app.use("/", routes);
 
   app.listen(port, () => {
     console.log(`Listening on port ${port}`);
