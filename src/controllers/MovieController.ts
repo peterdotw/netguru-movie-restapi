@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
 
-import { Movie } from "../entity/Movie";
+import { Movie } from "../entities/Movie";
 import OmdbAPI from "../api/OmdbAPI";
 
 class MovieController {
