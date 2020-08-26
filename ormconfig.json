@@ -1,0 +1,6 @@
+{
+  "type": "sqlite",
+  "database": "netguru_restapi.sqlite",
+  "entities": ["dist/entities/*.js"],
+  "synchronize": true
+}

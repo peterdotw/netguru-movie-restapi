@@ -3,14 +3,17 @@ import {
   Column,
   PrimaryGeneratedColumn,
   CreateDateColumn,
+  OneToMany,
 } from "typeorm";
+
+import { Comment } from "./Comment";
 
 @Entity()
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @Column()
+  @Column({ unique: true })
   title: string;
 
   @Column()
@@ -30,6 +33,9 @@ export class Movie {
 
   @Column()
   plot: string;
+
+  @OneToMany(() => Comment, (comment) => comment.movie)
+  comments: Comment[];
 
   @CreateDateColumn()
   created_at: Date;

@@ -1,13 +1,14 @@
 import { Request, Response } from "express";
 import { getRepository } from "typeorm";
+import isEqual from "lodash.isequal";
 
 import { Movie } from "../entities/Movie";
 import OmdbAPI from "../api/OmdbAPI";
 
-class MovieController {
+export class MovieController {
   static getAllMovies = async (_: Request, res: Response) => {
     const movieRepository = getRepository(Movie);
-    const movies = await movieRepository.find();
+    const movies = await movieRepository.find({ relations: ["comments"] });
 
     res.json(movies);
   };
@@ -15,7 +16,17 @@ class MovieController {
   static saveMovie = async (req: Request, res: Response) => {
     let { title } = req.body;
 
+    if (title === undefined) {
+      res.sendStatus(400);
+      return;
+    }
+
     let details = await OmdbAPI.getMovieDetails(title);
+
+    if (isEqual(details, { Response: "False", Error: "Movie not found!" })) {
+      res.sendStatus(400);
+      return;
+    }
 
     let { Director, Year, Genre, Runtime, Actors, Plot } = details;
 
@@ -33,12 +44,10 @@ class MovieController {
     try {
       await movieRepository.save(newMovie);
     } catch (e) {
-      res.status(400).send();
+      res.sendStatus(400);
       return;
     }
 
-    res.status(201).send("Movie created");
+    res.sendStatus(201);
   };
 }
-
-export default MovieController;
