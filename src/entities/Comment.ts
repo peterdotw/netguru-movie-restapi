@@ -5,6 +5,7 @@ import {
   CreateDateColumn,
   ManyToOne,
 } from "typeorm";
+import { Length } from "class-validator";
 
 import { Movie } from "./Movie";
 
@@ -14,6 +15,7 @@ export class Comment {
   id: number;
 
   @Column()
+  @Length(0, 255)
   comment: string;
 
   @CreateDateColumn()

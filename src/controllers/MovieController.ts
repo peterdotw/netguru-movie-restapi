@@ -6,15 +6,17 @@ import { Movie } from "../entities/Movie";
 import OmdbAPI from "../api/OmdbAPI";
 
 export class MovieController {
-  static getAllMovies = async (_: Request, res: Response) => {
+  static getAllMovies = async (_: Request, res: Response): Promise<void> => {
     const movieRepository = getRepository(Movie);
     const movies = await movieRepository.find({ relations: ["comments"] });
 
     res.json(movies);
   };
 
-  static saveMovie = async (req: Request, res: Response) => {
+  static saveMovie = async (req: Request, res: Response): Promise<void> => {
     let { title } = req.body;
+
+    const movieRepository = getRepository(Movie);
 
     if (title === undefined) {
       res.sendStatus(400);
@@ -38,8 +40,6 @@ export class MovieController {
     newMovie.runtime = Runtime;
     newMovie.actors = Actors;
     newMovie.plot = Plot;
-
-    const movieRepository = getRepository(Movie);
 
     try {
       await movieRepository.save(newMovie);
