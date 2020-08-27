@@ -49,6 +49,29 @@ Run tests:
 npm run test
 ```
 
+### Using API
+
+GET /movies
+
+POST /movies
+
+```
+{
+  "title": "example movie"
+}
+```
+
+GET /comments
+
+POST /comments
+
+```
+{
+    "comment": "example comment",
+    "movie": "example movie"
+}
+```
+
 ## Note about deployed app
 
 Heroku always puts the server to sleep after 30 minutes of last activity so it can load 1-2 minutes at the first time You visit my app on Heroku.
