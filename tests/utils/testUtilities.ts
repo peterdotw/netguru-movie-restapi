@@ -16,3 +16,10 @@ export const setupTests = () => {
     await getConnection().close();
   });
 };
+
+export const errorFixture = (code: number, message: string) => {
+  return JSON.stringify({
+    code,
+    message,
+  });
+};

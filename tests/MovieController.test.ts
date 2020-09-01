@@ -1,7 +1,7 @@
 import request from "supertest";
 
 import app from "../src/app";
-import { setupTests } from "./utils/testUtilities";
+import { setupTests, errorFixture } from "./utils/testUtilities";
 
 describe("GET /movies", () => {
   setupTests();
@@ -32,7 +32,7 @@ describe("POST /movies", () => {
       .post("/movies")
       .set("Accept", "application/json")
       .send({ error: "Catman" })
-      .expect("Bad Request")
+      .expect(errorFixture(400, "Movie title required."))
       .expect(400, done);
   });
 
@@ -41,7 +41,7 @@ describe("POST /movies", () => {
       .post("/movies")
       .set("Accept", "application/json")
       .send({ title: "ExampleNotExistingMovie" })
-      .expect("Bad Request")
+      .expect(errorFixture(400, "Movie not found in OmdbAPI."))
       .expect(400, done);
   });
 });

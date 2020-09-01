@@ -1,7 +1,7 @@
 import request from "supertest";
 
 import app from "../src/app";
-import { setupTests } from "./utils/testUtilities";
+import { setupTests, errorFixture } from "./utils/testUtilities";
 
 describe("GET /comments", () => {
   setupTests();
@@ -38,7 +38,7 @@ describe("POST /comments", async () => {
       .post("/comments")
       .set("Accept", "application/json")
       .send({ error: "I hate this movie!" })
-      .expect("Bad Request")
+      .expect(errorFixture(400, "Movie to comment doesn't exist."))
       .expect(400, done);
   });
 
@@ -47,7 +47,7 @@ describe("POST /comments", async () => {
       .post("/comments")
       .set("Accept", "application/json")
       .send({ title: "ExampleNotExistingMovie" })
-      .expect("Bad Request")
+      .expect(errorFixture(400, "Movie to comment doesn't exist."))
       .expect(400, done);
   });
 
@@ -61,7 +61,7 @@ describe("POST /comments", async () => {
           .post("/comments")
           .set("Accept", "application/json")
           .send({ comment: "x".repeat(1000), movie: "Batman" })
-          .expect("Bad Request")
+          .expect(errorFixture(400, "Comment have too many characters."))
           .expect(400, done);
       });
   });

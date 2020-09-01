@@ -4,6 +4,7 @@ import { validate } from "class-validator";
 
 import { Comment } from "../entities/Comment";
 import { Movie } from "../entities/Movie";
+import { errorHandler } from "../utils/errorHandler";
 
 export class CommentController {
   static getAllComments = async (_: Request, res: Response): Promise<void> => {
@@ -21,7 +22,7 @@ export class CommentController {
     const foundMovie = await movieRepository.findOne({ title: movie });
 
     if (foundMovie === undefined) {
-      res.sendStatus(400);
+      errorHandler(res, 400, "Movie to comment doesn't exist.");
       return;
     }
 
@@ -32,7 +33,7 @@ export class CommentController {
     const errors = await validate(newComment);
 
     if (errors.length > 0) {
-      res.sendStatus(400);
+      errorHandler(res, 400, "Comment have too many characters.");
       return;
     }
 

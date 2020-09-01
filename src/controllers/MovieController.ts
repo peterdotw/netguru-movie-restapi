@@ -4,6 +4,7 @@ import isEqual from "lodash.isequal";
 
 import { Movie } from "../entities/Movie";
 import OmdbAPI from "../api/OmdbAPI";
+import { errorHandler } from "../utils/errorHandler";
 
 export class MovieController {
   static getAllMovies = async (_: Request, res: Response): Promise<void> => {
@@ -19,14 +20,14 @@ export class MovieController {
     const movieRepository = getRepository(Movie);
 
     if (title === undefined) {
-      res.sendStatus(400);
+      errorHandler(res, 400, "Movie title required.");
       return;
     }
 
     let details = await OmdbAPI.getMovieDetails(title);
 
     if (isEqual(details, { Response: "False", Error: "Movie not found!" })) {
-      res.sendStatus(400);
+      errorHandler(res, 400, "Movie not found in OmdbAPI.");
       return;
     }
 
@@ -44,7 +45,7 @@ export class MovieController {
     try {
       await movieRepository.save(newMovie);
     } catch (e) {
-      res.sendStatus(400);
+      errorHandler(res, 400, "Something went wrong when saving to database.");
       return;
     }
 
