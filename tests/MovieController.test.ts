@@ -27,6 +27,21 @@ describe("POST /movies", () => {
       .expect(201, done);
   });
 
+  it("should return bad request because movie already exists in database", (done) => {
+    request(app)
+      .post("/movies")
+      .set("Accept", "application/json")
+      .send({ title: "Catwoman" })
+      .end(() => {
+        request(app)
+          .post("/movies")
+          .set("Accept", "application/json")
+          .send({ title: "Catwoman" })
+          .expect(errorFixture(400, "Movie already exists in database."))
+          .expect(400, done);
+      });
+  });
+
   it("should return bad request because invalid data provided", (done) => {
     request(app)
       .post("/movies")

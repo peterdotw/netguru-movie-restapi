@@ -18,6 +18,12 @@ export class MovieController {
     let { title } = req.body;
 
     const movieRepository = getRepository(Movie);
+    const foundMovie = await movieRepository.findOne({ title });
+
+    if (foundMovie !== undefined) {
+      errorHandler(res, 400, "Movie already exists in database.");
+      return;
+    }
 
     if (title === undefined) {
       errorHandler(res, 400, "Movie title required.");
@@ -42,12 +48,7 @@ export class MovieController {
     newMovie.actors = Actors;
     newMovie.plot = Plot;
 
-    try {
-      await movieRepository.save(newMovie);
-    } catch (e) {
-      errorHandler(res, 400, "Something went wrong when saving to database.");
-      return;
-    }
+    await movieRepository.save(newMovie);
 
     res.sendStatus(201);
   };
