@@ -15,7 +15,7 @@ export class MovieController {
   };
 
   static saveMovie = async (req: Request, res: Response): Promise<void> => {
-    let { title } = req.body;
+    const { title } = req.body;
 
     const movieRepository = getRepository(Movie);
     const foundMovie = await movieRepository.findOne({ title });
@@ -30,16 +30,16 @@ export class MovieController {
       return;
     }
 
-    let details = await OmdbAPI.getMovieDetails(title);
+    const details = await OmdbAPI.getMovieDetails(title);
 
     if (isEqual(details, { Response: "False", Error: "Movie not found!" })) {
       errorHandler(res, 400, "Movie not found in OmdbAPI.");
       return;
     }
 
-    let { Director, Year, Genre, Runtime, Actors, Plot } = details;
+    const { Director, Year, Genre, Runtime, Actors, Plot } = details;
 
-    let newMovie = new Movie();
+    const newMovie = new Movie();
     newMovie.title = title;
     newMovie.director = Director;
     newMovie.year = Year;
