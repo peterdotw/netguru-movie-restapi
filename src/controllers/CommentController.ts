@@ -15,7 +15,7 @@ export class CommentController {
   };
 
   static saveComment = async (req: Request, res: Response): Promise<void> => {
-    let { comment, movie } = req.body;
+    const { comment, movie } = req.body;
 
     const movieRepository = getRepository(Movie);
     const commentRepository = getRepository(Comment);
@@ -26,7 +26,7 @@ export class CommentController {
       return;
     }
 
-    let newComment = new Comment();
+    const newComment = new Comment();
     newComment.comment = comment;
     newComment.movie = foundMovie;
 
