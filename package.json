@@ -9,7 +9,7 @@
     "test": "nyc mocha -r ts-node/register tests/**/*.test.ts"
   },
   "author": "peterdotw",
-  "license": "MIT",
+  "license": "GPL-3.0-or-later",
   "description": "",
   "devDependencies": {
     "@types/cors": "^2.8.7",
