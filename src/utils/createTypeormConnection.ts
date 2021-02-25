@@ -1,5 +1,10 @@
-import { createConnection } from "typeorm";
+import { getConnectionOptions, createConnection } from "typeorm";
 
 export const createTypeormConnection = async () => {
-  return createConnection("docker-db");
+  const connectionOptions = await getConnectionOptions(process.env.NODE_ENV);
+  console.log(connectionOptions);
+  return createConnection({
+    ...connectionOptions,
+    name: process.env.IS_DOCKER ? "docker-db" : "default",
+  });
 };
