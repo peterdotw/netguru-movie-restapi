@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: YOUR_DB_PASSWORD
+    container_name: "netguru-movie-restapi-db"
+  web:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./src:/home/node/app/src
+    environment:
+      OMDB_API_KEY: YOUR_OMDB_API_KEY_HERE
+      IS_DOCKER: true
+    container_name: "netguru-movie-restapi-web"
+    depends_on:
+      - db
