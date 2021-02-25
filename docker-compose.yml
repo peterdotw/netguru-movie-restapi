@@ -14,7 +14,7 @@ services:
       - ./src:/home/node/app/src
     environment:
       OMDB_API_KEY: YOUR_OMDB_API_KEY_HERE
-      IS_DOCKER: true
+      IS_DOCKER: EXIST
     container_name: "netguru-movie-restapi-web"
     depends_on:
       - db
