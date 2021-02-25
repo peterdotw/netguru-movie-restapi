@@ -9,7 +9,7 @@ import { Length } from "class-validator";
 
 import { Movie } from "./Movie";
 
-@Entity({ database: "docker-db" })
+@Entity()
 export class Comment {
   @PrimaryGeneratedColumn()
   id: number;

@@ -8,7 +8,7 @@ import {
 
 import { Comment } from "./Comment";
 
-@Entity({ database: "docker-db" })
+@Entity()
 export class Movie {
   @PrimaryGeneratedColumn()
   id: number;
