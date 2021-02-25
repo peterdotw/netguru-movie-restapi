@@ -18,3 +18,8 @@ services:
     container_name: "netguru-movie-restapi-web"
     depends_on:
       - db
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
