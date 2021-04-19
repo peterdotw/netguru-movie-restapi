@@ -1,5 +1,7 @@
 name: CI to Docker Hub
 
+key: ${{ runner.os }}-mycache-v1-${{ hashFiles(...) }}
+
 on:
   push:
     branches: [master]
