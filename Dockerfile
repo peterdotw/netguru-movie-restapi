@@ -1,5 +1,5 @@
 FROM node:lts-alpine AS build
-RUN apk update && apk add bash && rm -rf /var/cache/apk/*
+RUN apk update && apk add bash curl && rm -rf /var/cache/apk/*
 RUN curl -sfL https://install.goreleaser.com/github.com/tj/node-prune.sh | bash -s -- -b /usr/local/bin
 WORKDIR /home/node/app
 COPY package*.json ./
