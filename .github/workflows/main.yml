@@ -15,7 +15,7 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-mycache-v2-${{ hashFiles() }}
+          key: ${{ runner.os }}-mycache-v2-${{ hashFiles('**/package.json') }}
 
       - name: Check Out Repo
         uses: actions/checkout@v2
