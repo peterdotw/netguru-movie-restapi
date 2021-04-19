@@ -11,17 +11,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Cache node modules
+      - name: Clear cache
         uses: actions/cache@v2
-        env:
-          cache-name: cache-node-modules
         with:
           path: ~/.npm
-          key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-          restore-keys: |
-            ${{ runner.os }}-build-${{ env.cache-name }}-
-            ${{ runner.os }}-build-
-            ${{ runner.os }}-
+          key: ${{ runner.os }}-mycache-v2-${{ hashFiles() }}
 
       - name: Check Out Repo
         uses: actions/checkout@v2
