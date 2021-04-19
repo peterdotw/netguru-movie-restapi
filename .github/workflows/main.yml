@@ -1,7 +1,5 @@
 name: CI to Docker Hub
 
-key: ${{ runner.os }}-mycache-v1-${{ hashFiles(...) }}
-
 on:
   push:
     branches: [master]
@@ -11,6 +9,7 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    key: ${{ runner.os }}-mycache-v1-${{ hashFiles(...) }}
 
     steps:
       - name: Check Out Repo
