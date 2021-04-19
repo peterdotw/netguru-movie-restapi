@@ -11,12 +11,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Clear cache
-        uses: actions/cache@v2
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-mycache-v2-${{ hashFiles('**/package.json') }}
-
       - name: Check Out Repo
         uses: actions/checkout@v2
 
