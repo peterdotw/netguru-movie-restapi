@@ -9,9 +9,13 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    key: ${{ runner.os }}-mycache-v1-${{ hashFiles(...) }}
 
     steps:
+      - name: Clear cache
+        uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-mycache-v1-${{ hashFiles(...) }}
+
       - name: Check Out Repo
         uses: actions/checkout@v2
 
